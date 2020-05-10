@@ -1,1 +1,30 @@
-<p>profile works!</p>
+<form [formGroup]="profileEditForm" class="profile-form-container">
+  <mat-form-field class="first-field">
+    <input matInput placeholder="Email" formControlName="email">
+  </mat-form-field>
+  <mat-form-field class="input-form-field">
+    <input matInput placeholder="Login" formControlName="login">
+  </mat-form-field>
+  <mat-form-field class="input-form-field">
+    <input matInput placeholder="First Name" formControlName="firstName">
+  </mat-form-field>
+  <mat-form-field class="input-form-field">
+    <input matInput placeholder="Last Name" formControlName="lastName">
+  </mat-form-field>
+</form>
+<div class="action-buttons">
+  <button mat-raised-button (click)="save()" [class.disabled]="!profileEditForm.valid" [disabled]="!profileEditForm.valid">Save</button>
+</div>
+<form [formGroup]="passwordChangeForm" class="profile-form-container">
+  <mat-form-field class="input-form-field">
+
+    <input matInput placeholder="Password" formControlName="password">
+  </mat-form-field>
+  <mat-form-field class="input-form-field">
+    <input matInput placeholder="Confirm Password" formControlName="confirmPassword">
+  </mat-form-field>
+</form>
+
+<div class="action-buttons">
+  <button mat-raised-button (click)="changePassword()" [class.disabled]="!passwordChangeForm.valid" [disabled]="!passwordChangeForm.valid">Change password</button>
+</div>

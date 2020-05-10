@@ -1,0 +1,19 @@
+<div class="top-bar">
+  <div class="title-logo-wrapper">
+    <span>Transportation</span>
+    <span>Corp.</span>
+  </div>
+  <div class="auth-navigation-container">
+    <span>I am a</span>
+    <div class="buttons-wrapper">
+      <button mat-raised-button [class.active]="activeButton === routes[0].type" (click)="redirectTo('auth/customer/login')">Customer</button>
+      <button mat-raised-button [class.active]="activeButton === routes[1].type" (click)="redirectTo('auth/broker/login')">Broker</button>
+      <button mat-raised-button [class.active]="activeButton === routes[2].type" (click)="redirectTo('auth/driver/login')">Driver</button>
+    </div>
+  </div>
+</div>
+<div class="main-content-wrapper">
+  <div class="auth-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>

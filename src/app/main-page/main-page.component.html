@@ -1,0 +1,33 @@
+<div class="top-bar">
+  <div class="title-logo-wrapper">
+    <span>Transportation</span>
+    <span>Corp.</span>
+  </div>
+</div>
+<div class="main-wrapper">
+  <img class="menu-button" (click)="drawer.toggle()" src="./assets/icons/menu.svg">
+  <mat-drawer-container autosize class="left-menu">
+    <mat-drawer #drawer mode="side" class="drawer">
+      <div class="icon-wrapper">
+        <img src="./assets/icons/dashboard.svg" (click)="redirectTo('main-page/dashboard')">
+      </div>
+      <div class="icon-wrapper">
+        <img src="./assets/icons/requests.svg" (click)="redirectTo('main-page/requests')">
+      </div>
+      <div class="icon-wrapper">
+        <img src="./assets/icons/transportation.svg" (click)="redirectTo('main-page/transportations')">
+      </div>
+      <div class="icon-wrapper">
+        <img src="./assets/icons/users.svg" (click)="redirectTo('main-page/profile')">
+      </div>
+      <div class="icon-wrapper">
+        <img src="./assets/icons/exit.svg" (click)="logout()">
+      </div>
+    </mat-drawer>
+  </mat-drawer-container>
+  <div class="main-content-wrapper">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+

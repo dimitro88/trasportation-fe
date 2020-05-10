@@ -1,0 +1,12 @@
+<form [formGroup]="loginForm" class="login-form-container">
+  <mat-form-field class="login-field">
+    <input matInput placeholder="Login" formControlName="login">
+  </mat-form-field>
+  <mat-form-field class="password-field">
+    <input matInput placeholder="Password" formControlName="password">
+  </mat-form-field>
+</form>
+<div class="action-buttons">
+  <button mat-raised-button (click)="redirectTo('auth/driver/register')">To Register</button>
+  <button mat-raised-button [disabled]="!loginForm.valid" [class.disabled]="!loginForm.valid" (click)="login()">Login</button>
+</div>

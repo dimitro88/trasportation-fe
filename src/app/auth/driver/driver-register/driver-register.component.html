@@ -1,0 +1,24 @@
+<form [formGroup]="registerForm" class="login-form-container">
+  <mat-form-field class="first-field">
+    <input matInput placeholder="Email" formControlName="email">
+  </mat-form-field>
+  <mat-form-field class="input-form-field">
+    <input matInput placeholder="Login" formControlName="login">
+  </mat-form-field>
+  <mat-form-field class="input-form-field">
+    <input matInput placeholder="First Name" formControlName="firstName">
+  </mat-form-field>
+  <mat-form-field class="input-form-field">
+    <input matInput placeholder="Last Name" formControlName="lastName">
+  </mat-form-field>
+  <mat-form-field class="input-form-field">
+    <input matInput placeholder="Password" formControlName="password">
+  </mat-form-field>
+  <mat-form-field class="input-form-field">
+    <input matInput placeholder="Confirm Password" formControlName="confirmPassword">
+  </mat-form-field>
+</form>
+<div class="action-buttons">
+  <button mat-raised-button (click)="redirectTo('auth/driver/login')">To Login</button>
+  <button mat-raised-button (click)="register()" [class.disabled]="!registerForm.valid" [disabled]="!registerForm.valid">Register</button>
+</div>

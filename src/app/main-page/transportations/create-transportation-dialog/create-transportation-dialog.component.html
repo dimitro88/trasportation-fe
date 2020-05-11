@@ -1,0 +1,33 @@
+<form [formGroup]="transportationForm" class="transportation-form-container">
+  <div class="column">
+    <mat-form-field>
+      <mat-label>Start date</mat-label>
+      <input matInput [matDatepicker]="startDatePicker" formControlName="startDateTime">
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>End date</mat-label>
+      <input matInput [matDatepicker]="endDatePicker" formControlName="endDateTime">
+      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="input-field">
+      <input matInput placeholder="Phone" formControlName="customerPhone">
+    </mat-form-field>
+  </div>
+  <div class="column">
+    <mat-form-field class="input-field">
+      <input matInput placeholder="Address to deliver" formControlName="addressToBeDelivered">
+    </mat-form-field>
+    <mat-form-field class="input-field">
+      <input matInput placeholder="Cost of products" formControlName="costOfProducts">
+    </mat-form-field>
+    <mat-form-field class="input-field">
+      <input matInput placeholder="Weight" formControlName="weight">
+    </mat-form-field>
+  </div>
+</form>
+<div class="button-container">
+  <button (click)="createTransportation()" mat-raised-button>Create</button>
+</div>

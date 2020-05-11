@@ -63,5 +63,12 @@
     width: 100%;
     height: 100%;
     background-color: #e1e2e8;
+
+    ::ng-deep app-transportations {
+      width: 100%;
+      height: 100%;
+      padding: 30px;
+      box-sizing: border-box;
+    }
   }
 }

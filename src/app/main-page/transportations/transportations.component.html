@@ -1,1 +1,44 @@
-<p>transportations works!</p>
+<div class="header-container">
+  <button (click)="openDialog()" class="create-transportation-btn" mat-raised-button>Create transportation request</button>
+</div>
+<div class="table-container">
+  <table mat-table
+         [dataSource]="transportations" multiTemplateDataRows
+         class="mat-elevation-z8">
+    <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+      <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+      <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+    </ng-container>
+
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+        <div class="example-element-detail"
+             [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <div class="detail">
+            <div class="detail-element">
+              Customer phone: {{ element.customerPhone }}
+            </div>
+            <div class="detail-element">
+              Cost of delivery: {{ element.costOfDelivery ? element.costOfDelivery : 'not provided' }}
+            </div>
+            <div class="detail-element">
+              Weight: {{ element.weight }} kg
+            </div>
+            <div class="detail-element">
+              Number of transportation: {{ element.id }}
+            </div>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  </table>
+</div>

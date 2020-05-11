@@ -6,6 +6,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   imports: [
@@ -15,7 +19,11 @@ import { MatInputModule } from '@angular/material/input';
     MatIconModule,
     MatCardModule,
     MatSidenavModule,
-    MatInputModule
+    MatInputModule,
+    MatTableModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatButtonModule,
@@ -24,7 +32,11 @@ import { MatInputModule } from '@angular/material/input';
     MatIconModule,
     MatCardModule,
     MatSidenavModule,
-    MatInputModule
+    MatInputModule,
+    MatTableModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class MaterialModule {

@@ -1,0 +1,29 @@
+.transportation-form-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: calc(100% - 50px);
+  justify-content: space-between;
+  .column {
+    box-sizing: border-box;
+    padding: 20px;
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+.button-container {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 20px;
+  box-sizing: border-box;
+  button {
+    background-color: #0db5af;
+    color: #e1e2e8;
+  }
+}

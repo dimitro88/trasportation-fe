@@ -3,13 +3,21 @@ import { CommonModule } from '@angular/common';
 
 import { TransportationsRoutingModule } from './transportations-routing.module';
 import { TransportationsComponent } from './transportations.component';
+import { MaterialModule } from '../../shared/material/material.module';
+import { CreateTransportationDialogComponent } from './create-transportation-dialog/create-transportation-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [TransportationsComponent],
+  declarations: [TransportationsComponent, CreateTransportationDialogComponent],
   imports: [
     CommonModule,
-    TransportationsRoutingModule
+    TransportationsRoutingModule,
+    MaterialModule,
+    ReactiveFormsModule
+  ],
+  entryComponents: [
+    CreateTransportationDialogComponent
   ]
 })
 export class TransportationsModule { }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { DatabaseService } from '../database/database.service';
 import { DatabaseTablesEnum } from '../database/enums/databaseTables.enum';
 import { ILoginBody } from '../shared/interfaces/ILoginBody';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root'
@@ -13,19 +14,20 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    private database: DatabaseService
+    private database: DatabaseService,
+    private snackBar: MatSnackBar
   ) { }
 
-  logout(): void {
+  public logout(): void {
     localStorage.removeItem(this.ACCESS_TOKEN);
     this.router.navigate(['auth/customer/login']);
   }
 
-  isAuthenticated(): boolean {
+  public isAuthenticated(): boolean {
     return !!JSON.parse(localStorage.getItem(this.ACCESS_TOKEN));
   }
 
-  login(data: ILoginBody, table: DatabaseTablesEnum): void {
+  public login(data: ILoginBody, table: DatabaseTablesEnum): void {
     const user = this.findUserAndCheckPasswordsMatch(data);
     if (user) {
       this.database.updateEntity(table, user.id, { accessToken: '123' });
@@ -34,14 +36,14 @@ export class AuthService {
     }
   }
 
-  register(data: any, table: DatabaseTablesEnum, redirectUrl: string): void {
+  public register(data: any, table: DatabaseTablesEnum, redirectUrl: string): void {
     if (!this.ifUserExists(data.login)) {
       this.database.saveEntity(table, data);
       this.router.navigate([redirectUrl]);
     }
   }
 
-  ifUserExists(login: string): boolean {
+  public ifUserExists(login: string): boolean {
     const customer = this.database.findByProperty(DatabaseTablesEnum.Customers, 'login', login);
     const broker = this.database.findByProperty(DatabaseTablesEnum.Brokers, 'login', login);
     const driver = this.database.findByProperty(DatabaseTablesEnum.Drivers, 'login', login);
@@ -52,12 +54,13 @@ export class AuthService {
     return false;
   }
 
-  findUserAndCheckPasswordsMatch(loginBody: ILoginBody): any {
+  public findUserAndCheckPasswordsMatch(loginBody: ILoginBody): any {
     const customer = this.database.findByProperty(DatabaseTablesEnum.Customers, 'login', loginBody.login);
     const broker = this.database.findByProperty(DatabaseTablesEnum.Brokers, 'login', loginBody.login);
     const driver = this.database.findByProperty(DatabaseTablesEnum.Drivers, 'login', loginBody.login);
     if (!customer && !broker && !driver) {
-      console.log('user doesn`t exist');
+      this.snackBar.open("The user does't exist", 'OK');
+
       return false;
     }
 
@@ -73,7 +76,7 @@ export class AuthService {
       return broker;
     }
 
-    console.log('bad password');
+    this.snackBar.open("bad password", 'OK');
     return false;
   }
 }

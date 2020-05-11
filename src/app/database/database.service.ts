@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { DatabaseTablesEnum } from './enums/databaseTables.enum';
-import { v4 as uuidv4 } from 'uuid';
+import {Injectable} from '@angular/core';
+import {DatabaseTablesEnum} from './enums/databaseTables.enum';
+import {v4 as uuidv4} from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -55,5 +55,29 @@ export class DatabaseService {
   public updateEntity(table: DatabaseTablesEnum, id: string, data: any): any {
     const element = this.getById(table, id);
     return Object.assign({}, element, data);
+  }
+
+  public updateElementById(tableName: DatabaseTablesEnum, id: string, value: any): void {
+    const table = this.getAll(tableName);
+    let index: number = table.findIndex(ell => ell.id === id);
+
+    if (index === -1) {
+      console.log(`can't update by provided id ${id} in table ${tableName}`);
+    }
+    console.log('before', table);
+    table[index] = {
+      ...table[index],
+      ...value
+    }
+    console.log('after', table);
+    localStorage.setItem(tableName, JSON.stringify(table));
+  }
+
+  public updateActiveUser(value: any): void {
+    const activeUser = this.getAll(DatabaseTablesEnum.ActiveUser);
+    localStorage.setItem(DatabaseTablesEnum.ActiveUser, JSON.stringify({
+      ...activeUser,
+      ...value
+    }));
   }
 }

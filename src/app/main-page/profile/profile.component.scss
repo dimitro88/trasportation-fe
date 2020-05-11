@@ -1,0 +1,35 @@
+:host {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-form-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  .first-field {
+    margin-top: 25px;
+  }
+  .input-form-field {
+    margin-top: 30px;
+  }
+}
+
+.action-buttons {
+  margin-top: 25px;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  button {
+    width: 35%;
+    background-color: #0db5af;
+    color: #e1e2e8;
+  }
+  .disabled {
+    background-color: gray !important;
+  }
+}

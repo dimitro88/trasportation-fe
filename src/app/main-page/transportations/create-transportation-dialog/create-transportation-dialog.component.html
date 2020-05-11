@@ -29,5 +29,5 @@
   </div>
 </form>
 <div class="button-container">
-  <button (click)="createTransportation()" mat-raised-button>Create</button>
+  <button [class.disabled]="!transportationForm.valid" [disabled]="!transportationForm.valid" (click)="createTransportation()" mat-raised-button>Create</button>
 </div>

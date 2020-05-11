@@ -1,13 +1,33 @@
 <div class="header-container">
-  <button (click)="openDialog()" class="create-transportation-btn" mat-raised-button>Create transportation request</button>
+  <button *ngIf="type === UserTypeEnum.Customer" (click)="openDialog()" class="create-transportation-btn" mat-raised-button>Create transportation request</button>
 </div>
 <div class="table-container">
   <table mat-table
          [dataSource]="transportations" multiTemplateDataRows
          class="mat-elevation-z8">
-    <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-      <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-      <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+    <ng-container matColumnDef="startDateTime">
+      <th mat-header-cell *matHeaderCellDef> Start Date </th>
+      <td mat-cell *matCellDef="let element"> {{ element.startDateTime }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="endDateTime">
+      <th mat-header-cell *matHeaderCellDef> End Date </th>
+      <td mat-cell *matCellDef="let element"> {{ element.endDateTime }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="addressToBeDelivered">
+      <th mat-header-cell *matHeaderCellDef> Address </th>
+      <td mat-cell *matCellDef="let element"> {{ element.addressToBeDelivered }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="costOfProducts">
+      <th mat-header-cell *matHeaderCellDef> Cost of Products </th>
+      <td mat-cell *matCellDef="let element"> {{ element.costOfProducts }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let element"> {{ element.status }} </td>
     </ng-container>
 
     <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
@@ -28,6 +48,12 @@
             <div class="detail-element">
               Number of transportation: {{ element.id }}
             </div>
+          </div>
+          <div class="detail-actions" *ngIf="type === UserTypeEnum.Customer">
+            <button mat-raised-button (click)="addBroker(element.id)">Add broker</button>
+          </div>
+          <div class="detail-actions" *ngIf="type === UserTypeEnum.Broker && element.status === TransportationStatusesEnum.Pending">
+            <button mat-raised-button (click)="receiveTransportation(element.id)">Receive transportation</button>
           </div>
         </div>
       </td>

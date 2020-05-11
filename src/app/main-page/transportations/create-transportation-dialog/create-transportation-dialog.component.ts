@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TransportationsService } from '../../../services/transportations.service';
+import { TransportationStatusesEnum } from '../../../database/enums/transportationStatuses.enum';
 
 @Component({
   selector: 'app-create-transportation-dialog',
@@ -15,7 +16,6 @@ export class CreateTransportationDialogComponent implements OnInit {
     customerPhone: new FormControl('', Validators.compose([Validators.required])),
     addressToBeDelivered: new FormControl('', Validators.compose([Validators.required])),
     costOfProducts: new FormControl('', Validators.compose([Validators.required])),
-    costOfDelivery: new FormControl('', Validators.compose([Validators.required])),
     weight: new FormControl('', Validators.compose([Validators.required])),
   });
   public customer = JSON.parse(localStorage.getItem('active_user'));
@@ -29,13 +29,13 @@ export class CreateTransportationDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  close(): void {
-    this.dialogRef.close();
+  close(param?: any): void {
+    this.dialogRef.close(param ? param : null);
   }
 
   createTransportation(): void {
-    const body = Object.assign({}, this.transportationForm.value, { customerId: this.customer.id });
-    this.transportationsService.create(body);
-    this.close();
+    const body = Object.assign({}, this.transportationForm.value, { customerId: this.customer.id, status: TransportationStatusesEnum.Draft });
+    const savedItem = this.transportationsService.create(body);
+    this.close(savedItem);
   }
 }

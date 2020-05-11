@@ -1,7 +1,7 @@
 export interface PersonalInfo {
   firstName: string;
   lastName: string;
-  phone: string;
+  phone?: string;
 }
 
 export interface BankDetails {

@@ -10,3 +10,10 @@ export interface ICustomer {
   personalInfo: PersonalInfo;
   companyDetails?: CompanyDetails;
 }
+
+export interface ICustomerBody {
+  login: string;
+  email: string;
+  password: string;
+  personalInfo: PersonalInfo;
+}

@@ -1,0 +1,20 @@
+<div class="dialog-container">
+  <div class="title-container">
+    <span>Select broker from the list</span>
+  </div>
+  <div class="select-container">
+    <mat-form-field>
+      <mat-label>Choose Broker</mat-label>
+      <mat-select [(value)]="selected">
+        <mat-option *ngFor="let broker of brokers" [value]="broker.id">
+          {{ broker.personalInfo.firstName + ' ' + broker.personalInfo.lastName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="button-container">
+    <button [class.disabled]="!selected" [disabled]="!selected" mat-raised-button (click)="addBroker()">
+      Add broker
+    </button>
+  </div>
+</div>

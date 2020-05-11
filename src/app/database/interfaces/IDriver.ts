@@ -12,3 +12,10 @@ export interface IDriver {
   personalInfo: PersonalInfo;
   companyDetails?: CompanyDetails;
 }
+
+export interface IDriverBody {
+  login: string;
+  email: string;
+  password: string;
+  personalInfo: PersonalInfo;
+}

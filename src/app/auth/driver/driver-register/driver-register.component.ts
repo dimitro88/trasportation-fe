@@ -4,6 +4,7 @@ import { UserTypeEnum } from '../../../database/enums/UserType.enum';
 import { DatabaseTablesEnum } from '../../../database/enums/databaseTables.enum';
 import { AuthService } from '../../../services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { IDriverBody } from '../../../database/interfaces/IDriver';
 
 @Component({
   selector: 'app-driver-register',
@@ -34,7 +35,8 @@ export class DriverRegisterComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
   }
@@ -44,6 +46,15 @@ export class DriverRegisterComponent implements OnInit {
   }
 
   register(): void {
-    this.authService.register(Object.assign({}, this.registerForm.value, { type: UserTypeEnum.Driver }), DatabaseTablesEnum.Drivers, 'auth/driver/login');
+    const body: IDriverBody = {
+      email: this.registerForm.value.email,
+      login: this.registerForm.value.login,
+      personalInfo: {
+        lastName: this.registerForm.value.lastName,
+        firstName: this.registerForm.value.firstName
+      },
+      password: this.registerForm.value.password
+    };
+    this.authService.register(Object.assign({}, body, {type: UserTypeEnum.Driver}), DatabaseTablesEnum.Drivers, 'auth/driver/login');
   }
 }

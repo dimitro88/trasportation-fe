@@ -4,6 +4,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateTransportationDialogComponent } from './create-transportation-dialog/create-transportation-dialog.component';
 import { ITransportation } from '../../database/interfaces/ITransportation';
 import { TransportationsService } from '../../services/transportations.service';
+import { AddBrokerDialogComponent } from './add-broker-dialog/add-broker-dialog.component';
+import { UserTypeEnum } from '../../database/enums/UserType.enum';
+import { AreYouSureDialogComponent } from './are-you-sure-dialog/are-you-sure-dialog.component';
+import { TransportationStatusesEnum } from '../../database/enums/transportationStatuses.enum';
 
 @Component({
   selector: 'app-transportations',
@@ -19,9 +23,12 @@ import { TransportationsService } from '../../services/transportations.service';
 })
 export class TransportationsComponent implements OnInit {
   transportations: ITransportation[] = [];
-  columnsToDisplay = ['startDateTime', 'endDateTime', 'addressToBeDelivered', 'costOfProducts'];
+  columnsToDisplay = ['startDateTime', 'endDateTime', 'addressToBeDelivered', 'costOfProducts', 'status'];
   expandedElement: any | null;
   public activeUser = JSON.parse(localStorage.getItem('active_user'));
+  public type: UserTypeEnum;
+  public UserTypeEnum = UserTypeEnum;
+  public TransportationStatusesEnum = TransportationStatusesEnum;
 
   constructor(
     public dialog: MatDialog,
@@ -29,13 +36,47 @@ export class TransportationsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.transportations = this.transportationsService.getTransportations(this.activeUser.id);
+    this.type = this.activeUser.type;
+    this.getTransportations();
+    console.log(this.transportations);
+  }
+
+  getTransportations() {
+    this.transportations = this.transportationsService.getTransportations(this.activeUser.id, this.type);
   }
 
   openDialog(): void {
-    this.dialog.open(CreateTransportationDialogComponent, {
+    const dialogRef = this.dialog.open(CreateTransportationDialogComponent, {
       width: '600px',
       height: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.transportations = [...this.transportations, result];
+      }
+    });
+  }
+
+  addBroker(transportationId: string): void {
+    this.dialog.open(AddBrokerDialogComponent, {
+      width: '400px',
+      height: '250px',
+      data: transportationId
+    });
+  }
+
+  receiveTransportation(transportationId: string): void {
+    const dialogRef = this.dialog.open(AreYouSureDialogComponent, {
+      width: '350px',
+      height: '170px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.transportationsService.brokerAcceptTransportation(transportationId);
+        this.getTransportations();
+      }
     });
   }
 }

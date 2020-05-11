@@ -11,3 +11,10 @@ export interface IBroker {
   personalInfo: PersonalInfo;
   companyDetails?: CompanyDetails;
 }
+
+export interface IBrokerBody {
+  login: string;
+  email: string;
+  password: string;
+  personalInfo: PersonalInfo;
+}

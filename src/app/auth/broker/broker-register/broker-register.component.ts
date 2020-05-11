@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserTypeEnum } from '../../../database/enums/UserType.enum';
 import { DatabaseTablesEnum } from '../../../database/enums/databaseTables.enum';
 import { AuthService } from '../../../services/auth.service';
+import { IBrokerBody } from '../../../database/interfaces/IBroker';
 
 @Component({
   selector: 'app-broker-register',
@@ -44,6 +45,15 @@ export class BrokerRegisterComponent implements OnInit {
   }
 
   register(): void {
-    this.authService.register(Object.assign({}, this.registerForm.value, { type: UserTypeEnum.Broker }), DatabaseTablesEnum.Brokers, 'auth/broker/login');
+    const body: IBrokerBody = {
+      email: this.registerForm.value.email,
+      login: this.registerForm.value.login,
+      personalInfo: {
+        lastName: this.registerForm.value.lastName,
+        firstName: this.registerForm.value.firstName
+      },
+      password: this.registerForm.value.password
+    };
+    this.authService.register(Object.assign({}, body, { type: UserTypeEnum.Broker }), DatabaseTablesEnum.Brokers, 'auth/broker/login');
   }
 }
